@@ -1,0 +1,55 @@
+name: OpenMenu
+
+options:
+  bundleIdPrefix: software.openmenu
+  deploymentTarget:
+    macOS: "15.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: "MV69DM8J9K"
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: "Apple Development"
+    ENABLE_HARDENED_RUNTIME: YES
+
+packages:
+  OpenMenuCore:
+    path: Packages/OpenMenuCore
+  WindowSwitcher:
+    path: Packages/WindowSwitcher
+  SystemMonitor:
+    path: Packages/SystemMonitor
+  Clipboard:
+    path: Packages/Clipboard
+  WindowManager:
+    path: Packages/WindowManager
+
+targets:
+  OpenMenu:
+    type: application
+    platform: macOS
+    deploymentTarget: "15.0"
+    sources:
+      - path: App/Sources
+      - path: App/Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: software.openmenu.app
+        PRODUCT_NAME: OpenMenu
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_LSUIElement: YES
+        INFOPLIST_KEY_NSHumanReadableCopyright: "Copyright © 2026 OpenMenu contributors. MIT License."
+        INFOPLIST_KEY_CFBundleDisplayName: OpenMenu
+        COMBINE_HIDPI_IMAGES: YES
+    dependencies:
+      - package: OpenMenuCore
+      - package: WindowSwitcher
+      - package: SystemMonitor
+      - package: Clipboard
+      - package: WindowManager

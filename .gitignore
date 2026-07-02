@@ -1,0 +1,33 @@
+# Xcode / build
+build/
+DerivedData/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
+# XcodeGen generates this from project.yml — don't commit it
+OpenMenu.xcodeproj/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/*/.build/
+Packages/*/.swiftpm/
+
+# macOS
+.DS_Store
+
+# Misc
+*.log
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Local design references (third-party screenshots/mockups — never publish)
+Design/
+/2-tiles.png
+/4-tiles.png
