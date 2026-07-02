@@ -27,8 +27,6 @@ struct MenuPanelView: View {
             divider
             toggles
             divider
-            brightness
-            divider
             footer
         }
         .background(GlassCard(cornerRadius: Metric.cardRadius))
@@ -81,36 +79,12 @@ struct MenuPanelView: View {
         }
     }
 
-    // MARK: Brightness
-
-    private var brightness: some View {
-        VStack(alignment: .leading, spacing: 9) {
-            Text("EXTERNAL BRIGHTNESS")
-                .font(.system(size: 9, weight: .semibold))
-                .tracking(1.5)
-                .foregroundStyle(.white.opacity(0.55))
-            HStack(spacing: 9) {
-                Image(systemName: "moon.fill")
-                    .font(.system(size: 10))
-                    .foregroundStyle(.white.opacity(0.55))
-                Slider(value: $settings.externalBrightness, in: 0...1)
-                    .controlSize(.small)
-                    .tint(LiquidGlass.accent)
-                Image(systemName: "sun.max.fill")
-                    .font(.system(size: 11))
-                    .foregroundStyle(.white.opacity(0.55))
-            }
-        }
-        .padding(.horizontal, Metric.hPad)
-        .padding(.vertical, 13)
-    }
-
     // MARK: Footer
 
     private var footer: some View {
         HStack(spacing: 0) {
-            Button(action: openPreferences) {
-                Text("Preferences")
+            Button(action: showSettings) {
+                Text("Settings")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .contentShape(Rectangle())
             }
@@ -133,7 +107,7 @@ struct MenuPanelView: View {
             .frame(height: 1)
     }
 
-    private func openPreferences() {
+    private func showSettings() {
         dismiss()
         NSApp.activate(ignoringOtherApps: true)
         openSettings()

@@ -3,7 +3,7 @@ import WindowManager
 import WindowSwitcher
 import Clipboard
 
-/// The Preferences window: native grouped-form tabs (the glass aesthetic stays
+/// The Settings window: native grouped-form tabs (the glass aesthetic stays
 /// exclusive to the menu bar panel and switcher).
 struct SettingsView: View {
     @EnvironmentObject private var settings: AppSettings

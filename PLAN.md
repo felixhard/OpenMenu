@@ -178,9 +178,9 @@ auto-updates (the same model as Rectangle, AltTab, Stats). A clear first-run
 - Custom `NSStatusItem` + borderless transparent `NSPanel` hosting SwiftUI "glass" cards.
 - Live CPU/MEM/DISK ring gauges (real data via `SystemMonitor` package).
 - Feature toggles (Window Manager, Clipboard History, Keyboard Cleaning, Prevent Sleep — persisted),
-  External Monitor Brightness slider, detached Preferences/Quit card.
-- `Prevent Sleep` is functional (ProcessInfo power assertion); brightness slider is UI-only for now
-  (DDC/CI hardware control is a later task); the other toggles persist and will gate features as built.
+  Settings/Quit footer.
+- `Prevent Sleep` is functional (ProcessInfo power assertion). *(An External Monitor Brightness
+  slider shipped here but was removed 2026-07 — cut from scope; DDC/CI never landed.)*
 
 **Phase 1 — Window Switcher (first)** *(backend done; visual layer to be restyled to match the design language)*
 - ✅ CGEvent-tap hotkey, window enumeration, non-activating panel, ⌘-Tab cycling, AX activation.

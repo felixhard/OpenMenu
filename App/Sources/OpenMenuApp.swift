@@ -6,7 +6,7 @@ struct OpenMenuApp: App {
 
     var body: some Scene {
         // The menu bar UI is a custom status item + panel managed by AppDelegate.
-        // This Settings scene provides the Preferences window.
+        // This Settings scene provides the Settings window (⌘ ,).
         Settings {
             SettingsView()
                 .environmentObject(appDelegate.settings)

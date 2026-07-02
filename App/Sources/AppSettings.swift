@@ -5,7 +5,7 @@ import Clipboard
 import WindowManager
 import WindowSwitcher
 
-/// User-facing settings (menu bar panel toggles + Preferences window), persisted
+/// User-facing settings (menu bar panel toggles + Settings window), persisted
 /// to `UserDefaults`. Each `didSet` pushes the value into the owning feature, so
 /// changes apply live.
 final class AppSettings: ObservableObject {
@@ -40,8 +40,6 @@ final class AppSettings: ObservableObject {
             PowerManager.shared.setPreventSleep(preventSleep)
         }
     }
-    @Published var externalBrightness: Double { didSet { persist(externalBrightness, .externalBrightness) } }
-
     // MARK: General
 
     /// Registered with `SMAppService`, which is the source of truth — the value
@@ -119,7 +117,6 @@ final class AppSettings: ObservableObject {
         // input the moment the app starts.
         keyboardCleaning = false
         preventSleep = defaults.bool(forKey: Key.preventSleep.rawValue, default: false)
-        externalBrightness = defaults.double(forKey: Key.externalBrightness.rawValue, default: 0.8)
 
         launchAtLogin = SMAppService.mainApp.status == .enabled
         tileInnerGap = defaults.double(forKey: Key.tileInnerGap.rawValue, default: 8)
@@ -150,7 +147,7 @@ final class AppSettings: ObservableObject {
     }
 
     private enum Key: String {
-        case windowManager, clipboard, keyboardCleaning, preventSleep, externalBrightness
+        case windowManager, clipboard, keyboardCleaning, preventSleep
         case tileInnerGap, snapTriggerScale
         case switcherModifier, switcherShowsTitles
         case clipboardMaxItems, clipboardRetentionHours

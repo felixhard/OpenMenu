@@ -10,8 +10,8 @@ apps like [OneMenu](https://coffeebreak.software/one-menu/).
 
 ## Features
 
-- **Menu bar panel** — live CPU / memory / disk dials, feature toggles, and a
-  brightness slider in a warm glass drop-down
+- **Menu bar panel** — live CPU / memory / disk dials and feature toggles in a
+  glass drop-down
 - **Window Switcher** — ⌘ Tab (or ⌥ Tab) across *all* windows, including
   minimized and off-Space ones
 - **Clipboard History** — ⌘ ⇧ V searchable history for text, images, and files;
@@ -23,7 +23,7 @@ apps like [OneMenu](https://coffeebreak.software/one-menu/).
 - **Keyboard Cleaning** — block keyboard input while you wipe the keys
 - **Prevent Sleep** — one toggle to keep the Mac awake
 
-Preferences (⌘ ,) cover launch-at-login, tile padding, switcher shortcut,
+Settings (⌘ ,) cover launch-at-login, tile padding, switcher shortcut,
 clipboard retention, and more.
 
 ## Requirements
