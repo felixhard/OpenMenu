@@ -102,7 +102,7 @@ struct SwitcherView: View {
                                 : LiquidGlass.cardFill)
             // Uniform hairline edge on every card.
             shape.strokeBorder(LiquidGlass.borderColor, lineWidth: 1.5)
-            // Copper accent on top for the current selection.
+            // Accent stroke on top for the current selection.
             if selected {
                 shape.strokeBorder(LiquidGlass.accentBright.opacity(0.9), lineWidth: 1.5)
             }

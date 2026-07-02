@@ -531,7 +531,7 @@ private struct MonitorGraph: View {
                                   height: textSize.height + padV * 2)
             let pill = Path(roundedRect: pillRect, cornerRadius: pillRect.height / 2)
             // Opaque-ish dark backing so the label reads over the graph bars.
-            ctx.fill(pill, with: .color(Color(red: 0.16, green: 0.13, blue: 0.10).opacity(0.92)))
+            ctx.fill(pill, with: .color(Color(red: 0.10, green: 0.12, blue: 0.11).opacity(0.92)))
             ctx.stroke(pill, with: .color(.white.opacity(0.16)), lineWidth: 1)
             ctx.draw(resolved, at: CGPoint(x: inset + padH, y: y), anchor: .leading)
         }

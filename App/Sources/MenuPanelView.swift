@@ -2,7 +2,7 @@ import SwiftUI
 import SystemMonitor
 import OpenMenuCore
 
-/// The menu bar drop-down: one warm glass card — tick-mark instrument dials for
+/// The menu bar drop-down: one glass card — tick-mark instrument dials for
 /// CPU/MEM/DISK, icon toggle rows, a brightness slider, and a footer.
 ///
 /// Layout rule: every label starts at the same leading inset and every control
@@ -153,9 +153,9 @@ struct MenuPanelView: View {
 
 // MARK: - Tick dial
 
-/// OpenMenu's signature gauge: a 240° arc of instrument ticks that light copper
-/// as load rises — the last stretch is a redline — with the live value in
-/// monospaced digits at the centre and the label in the bottom gap.
+/// OpenMenu's signature gauge: a 240° arc of instrument ticks that light with
+/// the accent as load rises — the last stretch is a redline — with the live
+/// value in monospaced digits at the centre and the label in the bottom gap.
 private struct TickDial: View {
     let value: Double
     let label: String
