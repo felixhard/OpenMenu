@@ -13,7 +13,7 @@ struct ClipboardView: View {
     @State private var query = ""
     @FocusState private var searchFocused: Bool
 
-    /// Max preview height for image entries — a starting point we can tune.
+    /// Max preview height for image entries - a starting point we can tune.
     private let maxImageHeight: CGFloat = 180
 
     private var results: [ClipboardItem] { store.search(query) }

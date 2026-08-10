@@ -8,6 +8,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     let settings = AppSettings()
 
     private var statusItemController: StatusItemController?
+    private var onboarding: OnboardingController?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         settings.switcher = switcher
@@ -17,7 +18,17 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             settings?.keyboardCleaning = false
         }
         stats.start()
-        switcher.start()
+
+        // On first launch the onboarding flow owns the Accessibility prompt;
+        // suppress the switcher's so the user isn't asked twice at once.
+        let needsOnboarding = !OnboardingController.isCompleted
+        switcher.start(promptForAccessibilityIfNeeded: !needsOnboarding)
         statusItemController = StatusItemController(stats: stats, settings: settings)
+
+        if needsOnboarding {
+            let controller = OnboardingController()
+            onboarding = controller
+            controller.show { [weak self] in self?.onboarding = nil }
+        }
     }
 }

@@ -27,7 +27,7 @@ final class KeyboardCleaning {
     private func start() {
         guard !isActive else { return }
         guard AXIsProcessTrusted() else {
-            // Can't block input without Accessibility — bail and reset the toggle.
+            // Can't block input without Accessibility - bail and reset the toggle.
             onResume?()
             return
         }
@@ -38,7 +38,7 @@ final class KeyboardCleaning {
 
         // The callback swallows every keyboard event by returning nil. It captures
         // nothing, so it's usable as a C function pointer. If the system ever
-        // disables the tap, the keyboard simply comes back — a safe failure.
+        // disables the tap, the keyboard simply comes back - a safe failure.
         guard let tap = CGEvent.tapCreate(
             tap: .cgSessionEventTap,
             place: .headInsertEventTap,
@@ -112,7 +112,7 @@ private struct KeyboardCleaningOverlay: View {
                     .font(.system(size: 60, weight: .light))
                 Text("Keyboard Disabled")
                     .font(.system(size: 28, weight: .bold))
-                Text("Wipe away — keyboard input is paused for cleaning.")
+                Text("Wipe away. Keyboard input is paused for cleaning.")
                     .font(.system(size: 15))
                     .foregroundStyle(.white.opacity(0.7))
                 Button(action: onResume) {

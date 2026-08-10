@@ -42,15 +42,19 @@ public final class WindowSwitcherController: ObservableObject {
     public init() {}
 
     /// Wires up the hotkey handler and tries to install the tap. Safe to call
-    /// before Accessibility is granted — installation simply no-ops until then.
-    public func start() {
+    /// before Accessibility is granted - installation simply no-ops until then.
+    /// Pass `promptForAccessibilityIfNeeded: false` when something else (the
+    /// onboarding flow) owns the permission prompt; polling still runs.
+    public func start(promptForAccessibilityIfNeeded: Bool = true) {
         tap.onEvent = { [weak self] type, keyCode, flags in
             self?.handle(type: type, keyCode: keyCode, flags: flags) ?? false
         }
         if !installTapIfPossible() {
             // Not trusted yet: prompt once, then poll so the shortcut activates
-            // as soon as the user grants Accessibility — no relaunch required.
-            Permissions.ensureAccessibility(prompt: true)
+            // as soon as the user grants Accessibility - no relaunch required.
+            if promptForAccessibilityIfNeeded {
+                Permissions.ensureAccessibility(prompt: true)
+            }
             let timer = Timer(timeInterval: 2, repeats: true) { [weak self] timer in
                 guard let self else { timer.invalidate(); return }
                 if self.installTapIfPossible() { timer.invalidate() }

@@ -42,7 +42,7 @@ final class AppSettings: ObservableObject {
     }
     // MARK: General
 
-    /// Registered with `SMAppService`, which is the source of truth — the value
+    /// Registered with `SMAppService`, which is the source of truth - the value
     /// is read back from it at launch rather than from `UserDefaults`.
     @Published var launchAtLogin: Bool {
         didSet {
@@ -113,7 +113,7 @@ final class AppSettings: ObservableObject {
         self.defaults = defaults
         windowManager = defaults.bool(forKey: Key.windowManager.rawValue, default: true)
         clipboard = defaults.bool(forKey: Key.clipboard.rawValue, default: true)
-        // Never restore keyboard-cleaning as active on launch — that would block
+        // Never restore keyboard-cleaning as active on launch - that would block
         // input the moment the app starts.
         keyboardCleaning = false
         preventSleep = defaults.bool(forKey: Key.preventSleep.rawValue, default: false)

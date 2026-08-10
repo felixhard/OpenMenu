@@ -1,7 +1,7 @@
 import AppKit
 import QuickLookThumbnailing
 
-/// Generates and caches thumbnails for clipboard items via QuickLook — real image
+/// Generates and caches thumbnails for clipboard items via QuickLook - real image
 /// previews for image files and image copies, sensible previews for PDFs, etc.
 final class ClipboardThumbnails {
     static let shared = ClipboardThumbnails()

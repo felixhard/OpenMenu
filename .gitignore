@@ -7,7 +7,7 @@ DerivedData/
 *.xcuserstate
 *.xcscmblueprint
 
-# XcodeGen generates this from project.yml — don't commit it
+# XcodeGen generates this from project.yml - don't commit it
 OpenMenu.xcodeproj/
 
 # Swift Package Manager
@@ -27,7 +27,7 @@ Packages/*/.swiftpm/
 *.dSYM.zip
 *.dSYM
 
-# Local design references (third-party screenshots/mockups — never publish)
+# Local design references (third-party screenshots/mockups - never publish)
 Design/
 /2-tiles.png
 /4-tiles.png

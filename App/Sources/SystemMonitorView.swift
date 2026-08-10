@@ -42,7 +42,7 @@ struct SystemMonitorView: View {
             }
         }
         .padding(11)
-        // Fill the host window's fixed size; the window — not the content — is
+        // Fill the host window's fixed size; the window - not the content - is
         // authoritative, so nothing measures-and-resizes in a layout feedback loop.
         .frame(width: Metric.width)
         .frame(maxHeight: .infinity, alignment: .top)
@@ -409,7 +409,7 @@ struct SystemMonitorView: View {
 
     @ViewBuilder private var cleanButton: some View {
         if confirmClean {
-            // Inline confirm — kept inside the panel so it doesn't steal key focus
+            // Inline confirm - kept inside the panel so it doesn't steal key focus
             // (a popover/sheet would, and the panel auto-closes on focus loss).
             HStack(spacing: 8) {
                 Button(action: { confirmClean = false }) {
@@ -467,7 +467,7 @@ struct SystemMonitorView: View {
     }
 
     private func sizeText(_ bytes: Int64) -> String {
-        bytes <= 0 ? "—" : MonitorFormat.memoryBytes(UInt64(bytes))
+        bytes <= 0 ? "-" : MonitorFormat.memoryBytes(UInt64(bytes))
     }
 }
 

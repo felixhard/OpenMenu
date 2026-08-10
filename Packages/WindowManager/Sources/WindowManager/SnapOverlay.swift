@@ -62,7 +62,7 @@ private struct SnapOverlayView: View {
 
     var body: some View {
         GeometryReader { geo in
-            // Only preview the zone the window will snap into — no outlines for the
+            // Only preview the zone the window will snap into - no outlines for the
             // other tiles in the layout. Use the *same* gap geometry as the real
             // snap so the preview matches the window's final size exactly.
             let container = CGRect(origin: .zero, size: geo.size)

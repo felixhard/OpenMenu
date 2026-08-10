@@ -30,7 +30,7 @@ public enum Permissions {
         open(settingsPane: "Privacy_Accessibility")
     }
 
-    // MARK: Screen Recording (optional — for live thumbnails)
+    // MARK: Screen Recording (optional - for live thumbnails)
 
     /// Whether the app currently has Screen Recording permission.
     ///

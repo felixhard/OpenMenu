@@ -18,7 +18,7 @@ public enum SnapZone: Hashable {
     case left, right
     case topLeft, topRight, bottomLeft, bottomRight
 
-    /// Drawing rect in unit space, top-left origin (y down) — for the overlay.
+    /// Drawing rect in unit space, top-left origin (y down) - for the overlay.
     var unitRect: CGRect {
         switch self {
         case .left:        return CGRect(x: 0,   y: 0,   width: 0.5, height: 1)

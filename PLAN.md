@@ -1,4 +1,4 @@
-# OpenMenu — Planning & Research
+# OpenMenu - Planning & Research
 
 An open-source, native macOS menu bar app that replicates the feature set of
 [OneMenu](https://coffeebreak.software/one-menu/) by Coffee Break Software.
@@ -75,7 +75,7 @@ API lessons from). All are Swift/native.
 - *Permissions:* Accessibility (required), Screen Recording (optional, for thumbs).
 
 ### 3.3 Clipboard History
-- **Capture**: poll `NSPasteboard.general.changeCount` on a timer (~0.5s) — macOS
+- **Capture**: poll `NSPasteboard.general.changeCount` on a timer (~0.5s) - macOS
   has **no clipboard-change notification**. On change, snapshot all types
   (string, RTF, PNG/TIFF, file URLs).
 - **Metadata**: source app via `NSWorkspace.frontmostApplication`; window title via
@@ -85,7 +85,7 @@ API lessons from). All are Swift/native.
   Cmd-V via CGEvent. Offer "paste as plain text".
 - **Privacy**: honor `org.nspasteboard.ConcealedType` / transient markers (password
   managers); per-app allow/deny list; configurable retention.
-- **iCloud sync** (optional, later): `NSPersistentCloudKitContainer` — needs the
+- **iCloud sync** (optional, later): `NSPersistentCloudKitContainer` - needs the
   iCloud container entitlement + a paid Developer ID. Non-trivial; defer.
 
 ### 3.4 System Monitoring
@@ -105,7 +105,7 @@ API lessons from). All are Swift/native.
   Xcode DerivedData, `node_modules`, logs, Trash, large files in `~/Downloads`.
 - **Large-file finder**: deep `FileManager` enumeration sorted by size.
 - **Safe deletion**: always `trashItem(at:)` (recoverable) with explicit confirmation
-  and clear per-category breakdown — never `rm`. Curated allowlist of safe paths.
+  and clear per-category breakdown - never `rm`. Curated allowlist of safe paths.
 - *Permissions:* **Full Disk Access** for many locations.
 - *Caution:* this is the riskiest feature for data loss; conservative defaults, dry-run
   preview, and reversibility are mandatory.
@@ -133,7 +133,7 @@ API lessons from). All are Swift/native.
   distribute outside the App Store).
 - **Persistence**: SwiftData (clipboard/history), UserDefaults (settings).
 - **Modular layout**: one Swift Package per feature behind protocols, assembled by a
-  thin app shell — keeps features independently testable and toggleable.
+  thin app shell - keeps features independently testable and toggleable.
 
 ### Proposed project structure
 ```
@@ -171,41 +171,41 @@ auto-updates (the same model as Rectangle, AltTab, Stats). A clear first-run
 
 > Decided build order: **Switcher first, Window Manager last.**
 
-**Phase 0 — Scaffold** ✅ *(done)*
+**Phase 0 - Scaffold** ✅ *(done)*
 - XcodeGen project, agent app (`LSUIElement`), modular SPM packages, MIT license, Settings window.
 
-**Phase 0.5 — Menu bar panel** ✅ *(done — built against a local design reference; `Design/` is gitignored since it holds third-party screenshots)*
+**Phase 0.5 - Menu bar panel** ✅ *(done - built against a local design reference; `Design/` is gitignored since it holds third-party screenshots)*
 - Custom `NSStatusItem` + borderless transparent `NSPanel` hosting SwiftUI "glass" cards.
 - Live CPU/MEM/DISK ring gauges (real data via `SystemMonitor` package).
-- Feature toggles (Window Manager, Clipboard History, Keyboard Cleaning, Prevent Sleep — persisted),
+- Feature toggles (Window Manager, Clipboard History, Keyboard Cleaning, Prevent Sleep - persisted),
   Settings/Quit footer.
 - `Prevent Sleep` is functional (ProcessInfo power assertion). *(An External Monitor Brightness
-  slider shipped here but was removed 2026-07 — cut from scope; DDC/CI never landed.)*
+  slider shipped here but was removed 2026-07 - cut from scope; DDC/CI never landed.)*
 
-**Phase 1 — Window Switcher (first)** *(backend done; visual layer to be restyled to match the design language)*
+**Phase 1 - Window Switcher (first)** *(backend done; visual layer to be restyled to match the design language)*
 - ✅ CGEvent-tap hotkey, window enumeration, non-activating panel, ⌘-Tab cycling, AX activation.
 - ⏳ Restyle `SwitcherView` to the glass aesthetic, ScreenCaptureKit thumbnails, search, AX titles.
 
-**Phase 2 — Clipboard History**
+**Phase 2 - Clipboard History**
 - Polling capture, storage, searchable panel, paste/plain-text paste, per-app rules, retention.
 
-**Phase 3 — System Monitoring**
+**Phase 3 - System Monitoring**
 - CPU/mem/disk/network reads, process tree, menu bar widgets, dashboard. (Temp/GPU/per-proc network = stretch.)
 
-**Phase 4 — Disk Clean**
+**Phase 4 - Disk Clean**
 - Conservative scanners, size-sorted large files, trash-based deletion with preview/confirmation.
 
-**Phase 5 — Window Manager (flagship, last)**
+**Phase 5 - Window Manager (flagship, last)**
 - AX move/resize, presets, custom zones editor, drag-to-snap footprint, hotkeys + cycling, multi-display.
 
-**Phase 6 — Polish & extras**
+**Phase 6 - Polish & extras**
 - Monitor brightness, keyboard cleaning, optional iCloud sync, theming to match reference images.
 
 ---
 
 ## 7. Decisions
 - **App name:** OpenMenu
-- **Minimum macOS:** 15 (Sequoia) — latest-only; newest APIs, simplest code
+- **Minimum macOS:** 15 (Sequoia) - latest-only; newest APIs, simplest code
 - **Build order:** Window Switcher first → Window Manager last (see roadmap)
 - **License:** MIT
 - **iCloud sync:** deferred (local-only first)
@@ -219,7 +219,7 @@ auto-updates (the same model as Rectangle, AltTab, Stats). A clear first-run
 ## 8. Preferences window plan ✅ *(implemented)*
 
 > Goal: turn the placeholder Settings window into a real Preferences window.
-> Native macOS look (grouped `Form`, like System Settings) — the glass aesthetic
+> Native macOS look (grouped `Form`, like System Settings) - the glass aesthetic
 > stays exclusive to the menu bar panel and switcher, matching OneMenu.
 
 ### 8.1 Architecture
@@ -234,18 +234,18 @@ auto-updates (the same model as Rectangle, AltTab, Stats). A clear first-run
   the `openSettings` environment action (macOS 14+) via a tiny bridge view or by
   routing through `AppDelegate`. Verify it opens from the panel.
 - **Persistence pattern**: extend `AppSettings` with new `@Published` values +
-  `didSet` side effects pushing into the package singletons — same pattern as
+  `didSet` side effects pushing into the package singletons - same pattern as
   `preventSleep`/`clipboard` today. Packages expose setters instead of constants.
 
 ### 8.2 Tabs & settings
 
 **General**
-- Launch at login — `SMAppService.mainApp.register()/unregister()`.
+- Launch at login - `SMAppService.mainApp.register()/unregister()`.
 - Version + GitHub link (absorbs the current placeholder content).
 
 **Window Manager** *(the headline tab)*
-- Enable drag-to-snap (mirrors the panel toggle — same `AppSettings` value).
-- **Tile padding** — a single *Padding between tiles* slider, 0–30 pt (default
+- Enable drag-to-snap (mirrors the panel toggle - same `AppSettings` value).
+- **Tile padding** - a single *Padding between tiles* slider, 0–30 pt (default
   8) → `SnapGeometry.innerGap`. Tiles sit flush against the screen edges
   (`edgePadding = 0`); OneMenu documents no gap setting at all, and macOS's
   native tiling exposes just one margins control, so one slider it is. The
@@ -253,20 +253,20 @@ auto-updates (the same model as Rectangle, AltTab, Stats). A clear first-run
   we ever want it back. `SnapZone.cocoaFrame` and `SnapOverlay` read the same
   values so preview == result.
 - **Live mini-preview**: small 2×2 tile diagram in the pane that redraws as the
-  sliders move — instant feedback without dragging a real window.
-- Advanced (collapsed `DisclosureGroup`): snap trigger sensitivity — one slider
+  sliders move - instant feedback without dragging a real window.
+- Advanced (collapsed `DisclosureGroup`): snap trigger sensitivity - one slider
   scaling `SnapGeometry.cornerSize` (100) and `edgeSize` (28) proportionally.
 
 **Switcher**
-- Shortcut: ⌘Tab (replaces the system switcher) vs ⌥Tab — segmented picker.
+- Shortcut: ⌘Tab (replaces the system switcher) vs ⌥Tab - segmented picker.
   `HotKeyTap` already reports raw flags; `WindowSwitcherController` gets a
   configurable modifier instead of hard-coded ⌘.
-- Show window titles (on/off) — gates `WindowTitles` lookups.
+- Show window titles (on/off) - gates `WindowTitles` lookups.
 
 **Clipboard**
 - History size: 50 / 200 / 500 / 1000 items → `ClipboardStore.maxItems`.
 - Retention: 1 h / 12 h / 24 h / 7 d / forever → `ClipboardStore.retention`.
-  Both are `let` constants today — become vars configured through
+  Both are `let` constants today - become vars configured through
   `ClipboardController.shared`.
 
 ### 8.3 Implementation order

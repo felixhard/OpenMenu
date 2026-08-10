@@ -8,7 +8,7 @@ import SystemMonitor
 ///
 /// The menu is a borderless transparent `NSPanel` that auto-sizes to its SwiftUI
 /// content and drops down from the status item. The detail popup is a *separate*,
-/// fixed-size floating window centered on screen — deliberately not the same panel,
+/// fixed-size floating window centered on screen - deliberately not the same panel,
 /// so its (scrolling, variable-height) content never drives a live window-resize
 /// that would fight Auto Layout.
 @MainActor
@@ -78,7 +78,7 @@ final class StatusItemController: NSObject, NSWindowDelegate {
         }
     }
 
-    /// OpenMenu's menu bar mark: a miniature of the panel's tick dial — a 240°
+    /// OpenMenu's menu bar mark: a miniature of the panel's tick dial - a 240°
     /// arc of ticks with a bottom gap. Drawn as a template image so it adapts
     /// to menu bar appearance.
     private static func statusGlyph() -> NSImage {
@@ -228,7 +228,7 @@ final class StatusItemController: NSObject, NSWindowDelegate {
 
     // MARK: - NSWindowDelegate
 
-    /// Close whichever surface lost focus — i.e. the user clicked elsewhere.
+    /// Close whichever surface lost focus - i.e. the user clicked elsewhere.
     func windowDidResignKey(_ notification: Notification) {
         if (notification.object as? NSWindow) === monitorPanel {
             closeMonitor()

@@ -47,24 +47,43 @@ enum WindowTitles {
         stringValue(element, kAXSubroleAttribute as String) == (kAXStandardWindowSubrole as String)
     }
 
-    /// Best-effort `CGWindowID -> title` map for the given process ids.
-    static func titlesByWindowID(pids: Set<pid_t>) -> [CGWindowID: String] {
-        var result: [CGWindowID: String] = [:]
-        for pid in pids {
-            let app = AXUIElementCreateApplication(pid)
-            var windowsValue: CFTypeRef?
-            guard
-                AXUIElementCopyAttributeValue(app, kAXWindowsAttribute as CFString, &windowsValue) == .success,
-                let windows = windowsValue as? [AXUIElement]
-            else { continue }
+    static func sizeValue(_ element: AXUIElement) -> CGSize? {
+        var value: CFTypeRef?
+        guard
+            AXUIElementCopyAttributeValue(element, kAXSizeAttribute as CFString, &value) == .success,
+            let axValue = value, CFGetTypeID(axValue) == AXValueGetTypeID()
+        else { return nil }
+        var size = CGSize.zero
+        guard AXValueGetValue(axValue as! AXValue, .cgSize, &size) else { return nil }
+        return size
+    }
 
-            for window in windows {
+    /// Everything the enumerator needs to know about an AX window element.
+    struct AXWindow {
+        let element: AXUIElement
+        let pid: pid_t
+        let title: String
+        let isMinimized: Bool
+        let isStandard: Bool
+        let size: CGSize?
+    }
+
+    /// Best-effort `CGWindowID -> AXWindow` map for the given process ids. Only
+    /// covers windows AX can see: those on the active Space, minimized ones, and
+    /// windows of hidden apps.
+    static func axWindows(forApps pids: [pid_t]) -> [CGWindowID: AXWindow] {
+        var result: [CGWindowID: AXWindow] = [:]
+        for pid in pids {
+            for window in windowList(forApp: pid) {
                 guard let wid = windowID(of: window) else { continue }
-                var titleValue: CFTypeRef?
-                if AXUIElementCopyAttributeValue(window, kAXTitleAttribute as CFString, &titleValue) == .success,
-                   let title = titleValue as? String, !title.isEmpty {
-                    result[wid] = title
-                }
+                result[wid] = AXWindow(
+                    element: window,
+                    pid: pid,
+                    title: stringValue(window, kAXTitleAttribute as String) ?? "",
+                    isMinimized: boolValue(window, kAXMinimizedAttribute as String),
+                    isStandard: isStandardWindow(window),
+                    size: sizeValue(window)
+                )
             }
         }
         return result

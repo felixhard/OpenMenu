@@ -23,7 +23,7 @@ final class ClipboardMonitor {
         timer = nil
     }
 
-    /// Skip the next observed change — used so our own paste isn't re-captured.
+    /// Skip the next observed change - used so our own paste isn't re-captured.
     func ignoreNextChange() { skipNext = true }
 
     /// Marker types set by password managers and other apps (nspasteboard.org

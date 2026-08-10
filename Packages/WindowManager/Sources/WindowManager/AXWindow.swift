@@ -25,7 +25,7 @@ enum AXWindow {
     static func setFrame(_ window: AXUIElement, axRect: CGRect) {
         var origin = axRect.origin
         var size = axRect.size
-        // Position before and after size — some apps clamp size against the old frame.
+        // Position before and after size - some apps clamp size against the old frame.
         if let value = AXValueCreate(.cgPoint, &origin) {
             AXUIElementSetAttributeValue(window, kAXPositionAttribute as CFString, value)
         }

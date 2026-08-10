@@ -33,7 +33,7 @@ public struct ProcessRow: Identifiable, Equatable {
 /// Per-process CPU is computed from the delta of each process's accumulated CPU
 /// time between two samples, normalised to total machine capacity. Processes owned
 /// by other users (most root daemons) can't be read without elevated privileges and
-/// are simply skipped — so values reflect what this user's session can see.
+/// are simply skipped - so values reflect what this user's session can see.
 public final class ProcessSampler: ObservableObject {
 
     @Published public private(set) var rows: [ProcessRow] = []
@@ -70,7 +70,7 @@ public final class ProcessSampler: ObservableObject {
         timer = nil
     }
 
-    /// Force-quits every process represented by `row` — an app together with its
+    /// Force-quits every process represented by `row` - an app together with its
     /// helper processes. Real apps are asked to `forceTerminate`; anything else gets
     /// SIGKILL. The aggregated "System" bucket is never terminated as a unit (it's
     /// hundreds of unrelated daemons), so callers should not offer it.
@@ -151,7 +151,7 @@ public final class ProcessSampler: ObservableObject {
 
     /// Spawns `nettop` on a background queue, deltas its cumulative per-process byte
     /// counters against the previous sample, and stores the resulting bytes/sec. The
-    /// next `update()` picks these up — so network values trail CPU/memory by a tick.
+    /// next `update()` picks these up - so network values trail CPU/memory by a tick.
     private func refreshNetworkRates() {
         guard !netBusy else { return }
         netBusy = true
@@ -177,7 +177,7 @@ public final class ProcessSampler: ObservableObject {
     }
 
     /// One-shot `nettop` sample → cumulative in+out bytes per pid. Lines look like
-    /// `Wispr Flow.73506,27683,19532,` — the pid is the trailing dotted segment.
+    /// `Wispr Flow.73506,27683,19532,` - the pid is the trailing dotted segment.
     private static func runNettop() -> [Int32: UInt64] {
         let task = Process()
         task.executableURL = URL(fileURLWithPath: "/usr/bin/nettop")

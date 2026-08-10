@@ -35,7 +35,7 @@ private struct GeneralSettingsView: View {
             }
             Section {
                 LabeledContent("Version", value: Bundle.main.shortVersion)
-                Text("OpenMenu — an open-source menu bar utility.")
+                Text("OpenMenu, an open-source menu bar utility.")
                     .foregroundStyle(.secondary)
             }
         }

@@ -1,7 +1,7 @@
 # OpenMenu
 
 An open-source, native macOS menu bar utility: window switcher, clipboard
-history, system monitoring, window snapping, and small quality-of-life tools —
+history, system monitoring, window snapping, and small quality-of-life tools -
 in one lightweight app. Free and MIT-licensed, inspired by the feature set of
 apps like [OneMenu](https://coffeebreak.software/one-menu/).
 
@@ -10,18 +10,18 @@ apps like [OneMenu](https://coffeebreak.software/one-menu/).
 
 ## Features
 
-- **Menu bar panel** — live CPU / memory / disk dials and feature toggles in a
+- **Menu bar panel** - live CPU / memory / disk dials and feature toggles in a
   glass drop-down
-- **Window Switcher** — ⌘ Tab (or ⌥ Tab) across *all* windows, including
+- **Window Switcher** - ⌘ Tab (or ⌥ Tab) across *all* windows, including
   minimized and off-Space ones
-- **Clipboard History** — ⌘ ⇧ V searchable history for text, images, and files;
+- **Clipboard History** - ⌘ ⇧ V searchable history for text, images, and files;
   honors password-manager concealed types, so secrets are never recorded
-- **Window Manager** — drag a window to a screen edge or corner to snap it to
+- **Window Manager** - drag a window to a screen edge or corner to snap it to
   halves or quadrants, with configurable padding between tiles
-- **System Monitor** — per-process CPU, memory, and network with an app-grouped
+- **System Monitor** - per-process CPU, memory, and network with an app-grouped
   process list; disk usage with a built-in cache/junk cleaner
-- **Keyboard Cleaning** — block keyboard input while you wipe the keys
-- **Prevent Sleep** — one toggle to keep the Mac awake
+- **Keyboard Cleaning** - block keyboard input while you wipe the keys
+- **Prevent Sleep** - one toggle to keep the Mac awake
 
 Settings (⌘ ,) cover launch-at-login, tile padding, switcher shortcut,
 clipboard retention, and more.

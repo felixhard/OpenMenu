@@ -58,7 +58,7 @@ public final class WindowManagerController {
         }
         guard let window = draggedWindow else { return }
 
-        // Only engage once the window has actually moved — avoids snapping during
+        // Only engage once the window has actually moved - avoids snapping during
         // text selection or other in-window drags.
         if !confirmed, let initial = initialPosition, let now = AXWindow.position(of: window) {
             if hypot(now.x - initial.x, now.y - initial.y) > 6 { confirmed = true }

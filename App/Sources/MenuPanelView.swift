@@ -2,7 +2,7 @@ import SwiftUI
 import SystemMonitor
 import OpenMenuCore
 
-/// The menu bar drop-down: one glass card — tick-mark instrument dials for
+/// The menu bar drop-down: one glass card - tick-mark instrument dials for
 /// CPU/MEM/DISK, icon toggle rows, a brightness slider, and a footer.
 ///
 /// Layout rule: every label starts at the same leading inset and every control
@@ -127,9 +127,9 @@ struct MenuPanelView: View {
 
 // MARK: - Tick dial
 
-/// OpenMenu's signature gauge: a 240° arc of instrument ticks that light with
-/// the accent as load rises — the last stretch is a redline — with the live
-/// value in monospaced digits at the centre and the label in the bottom gap.
+/// OpenMenu's signature gauge: a 240° arc of instrument ticks that light as load
+/// rises, in the load's status colour (green, yellow, red), with the live value
+/// in monospaced digits at the centre and the label in the bottom gap.
 private struct TickDial: View {
     let value: Double
     let label: String
@@ -138,8 +138,6 @@ private struct TickDial: View {
 
     private static let tickCount = 25
     private static let sweep = 240.0
-    /// Ticks in the top decile light red — the dial's fixed redline zone.
-    private static let redline = 0.9
 
     var body: some View {
         ZStack {
@@ -154,7 +152,7 @@ private struct TickDial: View {
 
             Text("\(percent)%")
                 .font(.system(size: 13, weight: .semibold, design: .monospaced))
-                .foregroundStyle(hovering ? LiquidGlass.accentBright : .white)
+                .foregroundStyle(.white)
 
             Text(label)
                 .font(.system(size: 8, weight: .semibold))
@@ -176,7 +174,6 @@ private struct TickDial: View {
 
     private func tickColor(_ fraction: Double) -> Color {
         let lit = fraction <= max(0.02, min(value, 1))
-        guard lit else { return .white.opacity(0.14) }
-        return fraction >= Self.redline ? LiquidGlass.critical : LiquidGlass.accent
+        return lit ? LiquidGlass.status(for: value) : .white.opacity(0.14)
     }
 }

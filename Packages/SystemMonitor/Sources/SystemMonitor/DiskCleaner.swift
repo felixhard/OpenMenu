@@ -1,7 +1,7 @@
 import Foundation
 
 /// A removable-files category shown in the Disk tab. Cleaning a category deletes the
-/// *contents* of its `roots` — never the root directories themselves.
+/// *contents* of its `roots` - never the root directories themselves.
 public struct CleanupCategory: Identifiable, Equatable {
     public let id: String
     public let name: String

@@ -1,43 +1,51 @@
 import AppKit
 import ApplicationServices
 
-/// Brings a chosen window to the front: activates its app, then raises and
-/// focuses the specific window via the Accessibility API.
+/// Brings a chosen window to the front. Primary path is a window-server-level
+/// focus (see `WindowServerFocus`), which keys the exact window and follows it
+/// to other Spaces; an AX raise on top handles unminimizing and main-window
+/// state when AX has an element for the window.
 public enum WindowActivator {
 
     public static func activate(_ window: WindowInfo) {
-        let app = NSRunningApplication(processIdentifier: window.pid)
-        app?.activate(options: [.activateAllWindows])
+        let target = axWindow(for: window)
 
-        let axApp = AXUIElementCreateApplication(window.pid)
-        var value: CFTypeRef?
-        guard
-            AXUIElementCopyAttributeValue(axApp, kAXWindowsAttribute as CFString, &value) == .success,
-            let axWindows = value as? [AXUIElement]
-        else { return }
-
-        let target = axWindows.first { WindowTitles.windowID(of: $0) == window.id }
-            ?? bestMatch(in: axWindows, for: window)
-            ?? axWindows.first
-        if let target {
-            // Restore a minimized window before raising it.
+        // Restore a minimized window before focusing it.
+        if let target, window.isMinimized {
             AXUIElementSetAttributeValue(target, kAXMinimizedAttribute as CFString, kCFBooleanFalse)
+        }
+
+        let focused = WindowServerFocus.focus(window.id)
+        if !focused {
+            // Private API failed; fall back to plain app activation.
+            NSRunningApplication(processIdentifier: window.pid)?
+                .activate(options: target == nil ? [.activateAllWindows] : [])
+        }
+
+        if let target {
             AXUIElementPerformAction(target, kAXRaiseAction as CFString)
             AXUIElementSetAttributeValue(target, kAXMainAttribute as CFString, kCFBooleanTrue)
         }
     }
 
-    /// Falls back to matching an AX window by title when the precise window-id
-    /// match isn't available.
-    private static func bestMatch(in axWindows: [AXUIElement], for window: WindowInfo) -> AXUIElement? {
-        guard !window.title.isEmpty else { return nil }
-        for ax in axWindows {
-            var titleValue: CFTypeRef?
-            if AXUIElementCopyAttributeValue(ax, kAXTitleAttribute as CFString, &titleValue) == .success,
-               let title = titleValue as? String, title == window.title {
-                return ax
-            }
+    /// The AX element backing the window, if AX can see it (active Space,
+    /// minimized, or hidden app). Windows on other Spaces have none; for those
+    /// the window-server focus does all the work.
+    private static func axWindow(for window: WindowInfo) -> AXUIElement? {
+        let axApp = AXUIElementCreateApplication(window.pid)
+        var value: CFTypeRef?
+        guard
+            AXUIElementCopyAttributeValue(axApp, kAXWindowsAttribute as CFString, &value) == .success,
+            let axWindows = value as? [AXUIElement]
+        else { return nil }
+
+        if let match = axWindows.first(where: { WindowTitles.windowID(of: $0) == window.id }) {
+            return match
         }
-        return nil
+        // Fall back to a title match when the window-id bridge is unavailable.
+        guard !window.title.isEmpty else { return nil }
+        return axWindows.first {
+            WindowTitles.stringValue($0, kAXTitleAttribute as String) == window.title
+        }
     }
 }
