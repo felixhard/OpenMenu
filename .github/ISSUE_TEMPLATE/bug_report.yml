@@ -1,0 +1,37 @@
+name: Bug report
+description: Report a problem with OpenMenu.
+labels: [bug]
+body:
+  - type: input
+    id: openmenu-version
+    attributes:
+      label: OpenMenu version or commit SHA
+      placeholder: "0.1.0 or 5b824ae"
+    validations:
+      required: true
+  - type: input
+    id: macos-version
+    attributes:
+      label: macOS version
+      placeholder: "macOS 15.7"
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Describe what you expected and what happened instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Include relevant settings, permissions, or display setup.
+    validations:
+      required: true
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Screenshots or logs
+      description: Redact private clipboard contents, window titles, file paths, and personal information before posting.

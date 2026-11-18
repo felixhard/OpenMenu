@@ -27,6 +27,9 @@ Packages/*/.swiftpm/
 *.dSYM.zip
 *.dSYM
 
+# Local signing overrides
+Config/Signing.local.xcconfig
+
 # Local design references (third-party screenshots/mockups - never publish)
 Design/
 /2-tiles.png

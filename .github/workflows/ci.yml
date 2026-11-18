@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test ${{ matrix.package }}
+    runs-on: macos-26
+    strategy:
+      fail-fast: false
+      matrix:
+        package: [OpenMenuCore, Clipboard, WindowManager, WindowSwitcher]
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
+      - run: swift test --package-path Packages/${{ matrix.package }}
+
+  build:
+    name: Build OpenMenu
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: false
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen generate
+      - name: Build app
+        run: xcodebuild -project OpenMenu.xcodeproj -scheme OpenMenu -configuration Debug -derivedDataPath build build
